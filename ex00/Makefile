@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: francesco <francesco@student.42.fr>        +#+  +:+       +#+         #
+#    By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 07:04:09 by francesco         #+#    #+#              #
-#    Updated: 2024/06/06 23:36:12 by francesco        ###   ########.fr        #
+#    Updated: 2024/06/07 11:15:19 by ftholoza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CXX = c++
 CXXFLAGS = -std=c++98 -Wall -Wextra -Werror -Wshadow -Wno-shadow
-SRC = main.cpp
+SRC = main.cpp BitcoinExchange.cpp  BitcoinExchange_utils.cpp
 OBJ = $(SRC:.cpp=.o)
 NAME = btc
 

@@ -3,64 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 23:40:53 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/07 01:10:06 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/07 13:52:46 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fstream>
-#include <map>
-#include <string>
-#include <iostream>
+#include "BitcoinExchange.hpp"
 
-bool    is_str_digit(std::string str)
-{
-    const char *string;
-    for (int i = 0; string[i] != 0; i++)
-        if (std::isdigit(string[i]) == 0)
-            return (false);
-    return (true);
-}
-
-bool    check_year(std::string  line)
-{
-    int year;
-    if (is_str_digit(line) == false)
-        return (false);
-    if (line.c_str()[0] == '0')
-        return (false);
-    year = std::atoi(line.c_str());
-    if (year < 0)
-        return (false);
-    return (true);
-}
-
-std::string get_data(std::string line)
-{
-    if (line.size() < 12)
-        return (NULL);
-    line.substr(0, 4);
-    
-}
 
 void    insert_data(std::map<std::string, double> &map, std::string line)
 {
-    
+    std::string date;
+    double      value;
+
+    try
+    {
+        date = get_date(line);
+        value = get_value(line);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return ;
+    }
+    map.insert(std::pair<std::string, double>(date, value));
 }
 
 int main(int argc, char **argv)
 {
+    if (argc != 2)
+        return (0);
     try
     {
         std::string     line;
         std::ifstream   data("data.csv");
+        if (data.bad() || data.eof() || data.is_open() == false)
+        {
+            std::cerr << "data.csv opening failed" << std::endl;
+            return (0);
+        }
         std::map<std::string, double>   map;
         while (std::getline(data, line))
-        {
-            
-        }
+            insert_data(map, line);
+        read_infile(argv[1], map);
     }
     catch(const std::exception& e)
     {
