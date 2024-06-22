@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PmegeMeV.cpp                                       :+:      :+:    :+:   */
+/*   PmergeMeV.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 07:30:32 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/22 15:12:39 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/22 16:36:37 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,6 @@ void    PmergeMe::insertion_v()
 	}
 	if ((*itl).second == -1)
         binary_research_v((*itl).first, this->vec.size(), this->vec);
-    show_vector(this->vec);
-    std::cout << std::endl;
+    //show_vector(this->vec);
+    //std::cout << std::endl;
 }

@@ -6,10 +6,11 @@
 /*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:05:14 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/22 15:30:27 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/22 16:46:01 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# include "Colors.hpp"
 # include "PmergeMe.hpp"
 
 double  time()
@@ -57,7 +58,7 @@ int main(int argc, char **argv)
     
     if (argc < 3)
     {
-        std::cerr << "Error: Not enought arguments" << std::endl;
+        std::cerr << RED <<"Error: Not enought arguments" << END_STYLE <<std::endl;
         return (1);
     }
     try
@@ -77,8 +78,9 @@ int main(int argc, char **argv)
             }
             pmerge.add_to_merge(argv[i], "NULL");
         }
-        std::cout << "Before:  ";
+        std::cout << RED << "Before:  " << END_STYLE << CYAN;
         show_l(pmerge.get_pair_list());
+        std::cout << END_STYLE;
         list_start = time();
         pmerge.first_sort_l();
         pmerge.second_sort_l();
@@ -91,13 +93,13 @@ int main(int argc, char **argv)
         pmerge.set_pend_vec();
         pmerge.insertion_v();
         vector_end = time();
-        std::cout << "After:  ";
+        std::cout << RED << "After:  " << END_STYLE << CYAN;
         show_list(pmerge.get_lst());
-        
-        std::cout << "Time to process a range of " << pmerge.get_lst().size();
+        std::cout << END_STYLE;
+        std::cout << PURPLE << "Time to process a range of " << pmerge.get_lst().size();
         std::cout << " elements with std::vector : " << vector_end - vector_start << " us" << std::endl;
         std::cout << "Time to process a range of " << pmerge.get_lst().size();
-        std::cout << " elements with std::list : " << list_end - list_start << " us";
+        std::cout << " elements with std::list : " << list_end - list_start << " us" << END_STYLE;
     }
     catch(const std::exception& e)
     {
