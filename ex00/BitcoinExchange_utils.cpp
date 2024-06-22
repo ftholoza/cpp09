@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange_utils.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:41:25 by ftholoza          #+#    #+#             */
-/*   Updated: 2024/06/07 15:54:21 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/11 07:45:52 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ double  get_value(std::string line)
 {
 	double	res;
     if (is_str_digit(line.substr(11, line.size())) == false)
-		throw ErrorInvalidAmountFormat(line);
+		std::cout << ErrorAmountFormat(line) << std::endl;
 	res = std::atof((line.substr(11, line.size())).c_str());
 	return (res);
 }
@@ -36,8 +36,6 @@ bool    check_year(std::string  line)
 {
     int year;
     
-	//if (line == "2011")
-    //	std::cout << line << std::endl;
     if (is_str_digit(line) == false)
         return (false);
     if (line.c_str()[0] == '0')
@@ -52,7 +50,6 @@ bool    check_mounth(std::string line)
 {
     int mounth;
     
-	//std::cout << line;
     if (is_str_digit(line) == false)
         return (false);
     mounth = std::atoi(line.c_str());
@@ -78,51 +75,102 @@ std::string get_date(std::string line)
 {
 	//std::cout << line << std::endl;
     if (line.size() < 12)
-		throw ErrorInvalidDateFormat(line);
+    {
+		std::cout << ErrorDateFormat(line);
+        throw Error();
+    }
     if (check_year(line.substr(0, 4)) == false)
-        throw ErrorInvalidYear(line);
+    {
+        std::cout << ErrorYear(line);
+        throw Error();
+    }
     if (line.c_str()[4] != '-')
-        throw ErrorInvalidDateFormat(line);
+    {
+        std::cout << ErrorDateFormat(line);
+        throw Error();
+    }
     if (check_mounth(line.substr(5, 2)) == false)
-        throw ErrorInvalidMounth(line);
+    {
+        std::cout << ErrorMounth(line);
+        throw Error();
+    }
     if (line.c_str()[7] != '-')
-		throw ErrorInvalidDateFormat(line);
+    {
+        std::cout << ErrorDateFormat(line);
+        throw Error();
+    }
     if (check_day(line.substr(8, 2)) == false)
-        throw ErrorInvalidDay(line);
+    {
+        std::cout << ErrorDay(line);
+        throw Error();
+    }   
     return (line.substr(0, 10));
 }
 
-const char *ErrorInvalidYear::what() const throw()
+std::string ErrorYear(std::string str)
 {
-    return (this->message.c_str());
+    std::string string;
+    string = "\033[1;31mError: Invalid Year => ";
+    string += str;
+    string += "\33[0m";
+    return (string);
 }
 
-const char *ErrorInvalidMounth::what() const throw()
+std::string ErrorMounth(std::string str)
 {
-    return (this->message.c_str());
+    std::string string;
+    string = "\033[1;31mError: Invalid Mounth => ";
+    string += str;
+    string += "\33[0m";
+    return (string);
 }
 
-const char *ErrorInvalidDay::what() const throw()
+std::string ErrorDay(std::string str)
 {
-    return (this->message.c_str());
+    std::string string;
+    string = "\033[1;31mError: Invalid Day => ";
+    string += str;
+    string += "\33[0m";
+    return (string);
 }
 
-const char *ErrorInvalidDateFormat::what() const throw()
+std::string ErrorDateFormat(std::string str)
 {
-    return (this->message.c_str());
+    std::string string;
+    string = "\033[1;31mError: Invalid Date Format => ";
+    string += str;
+    string += "\33[0m";
+    return (string);
 }
 
-const char *ErrorInvalidAmountFormat::what() const throw()
+std::string ErrorAmountFormat(std::string str)
 {
-    return (this->message.c_str());
+    std::string string;
+    string = "\033[1;31mError: Invalid Amount Format => ";
+    string += str;
+    string += "\33[0m";
+    return (string);
 }
 
-const char *ErrorNegative1000::what() const throw()
+std::string ErrorAmountValue(std::string str)
 {
-    return (this->message.c_str());
+    std::string string;
+    string = "\033[1;31mError: Amount can't be |> 1000| or |<= 0| => ";
+    string += str;
+    string += "\33[0m";
+    return (string);
 }
 
-const char *ErrorIncomplet::what() const throw()
+std::string ErrorMissingInfo(std::string str)
 {
-    return (this->message.c_str());
+    std::string string;
+    string = "\033[1;31mError: Date or Amount is missing => ";
+    string += str;
+    string += "\33[0m";
+    return (string);
+}
+
+const char *Error::what() const throw()
+{
+    return ("");
 }

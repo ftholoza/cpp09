@@ -3,12 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:34:42 by ftholoza          #+#    #+#             */
-/*   Updated: 2024/06/07 15:59:57 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:15:02 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef BITCOINEXCHANGE_CPP
+#   define BITCOINEXCHANGE_HPP
+
 
 #include <fstream>
 #include <map>
@@ -25,99 +29,18 @@ bool    check_day(std::string  line);
 double  get_value(std::string line);
 std::string get_date(std::string line);
 bool	read_infile(char *str, std::map<std::string, double> &data);
+std::string ErrorYear(std::string str);
+std::string ErrorMounth(std::string str);
+std::string ErrorDay(std::string str);
+std::string ErrorDateFormat(std::string str);
+std::string ErrorAmountFormat(std::string str);
+std::string ErrorAmountValue(std::string str);
+std::string ErrorMissingInfo(std::string str);
 
-class   ErrorInvalidYear : public std::runtime_error
+class   Error : public std::exception
 {
-    private:
-        std::string message;
     public:
-        ErrorInvalidYear(std::string str) throw()
-        {
-            this->message = "\033[1;31mError: Invalid Year => ";
-            message += str;
-            message += "\33[0m";
-        };
-        const char * what() const throw();
-};
-        
-
-class   ErrorInvalidMounth : public std::exception
-{
-    private:
-        std::string message;
-    public:
-        ErrorInvalidMounth(std::string str) throw(){
-            this->message = "\033[1;31mError: Invalid Mounth => ";
-            this->message += str;
-            this->message += "\33[0m";
-        };
-        virtual const char * what() const throw();
-};
-        
-
-class   ErrorInvalidDay : public std::exception
-{
-    private:
-        std::string message;
-    public:
-        ErrorInvalidDay(std::string str) throw(){
-            this->message = "\033[1;31mError: Invalid Day => ";
-            message += str;
-            message += "\33[0m";
-        }
-        virtual const char * what() const throw();
+        const char *what() const throw ();
 };
 
-class   ErrorInvalidDateFormat : public std::exception
-{
-    private:
-        std::string message;
-    public:
-        ErrorInvalidDateFormat(std::string str) throw(){
-            this->message = "\033[1;31mError: Invalid Date Format => ";
-            message += str;
-            message += "\33[0m";
-        }
-        virtual const char * what() const throw();
-};
-
-class   ErrorInvalidAmountFormat : public std::exception
-{
-    private:
-        std::string message;
-    public:
-        ErrorInvalidAmountFormat(std::string str) throw(){
-            this->message = "\033[1;31mError: Invalid Amount Format => ";
-            this->message += str;
-            this->message += "\33[0m";
-        }
-        virtual const char * what() const throw();
-};
-
-class   ErrorNegative1000 : public std::exception
-{
-    private:
-        std::string message;
-    public:
-        ErrorNegative1000(std::string str) throw(){
-            this->message = "\033[1;31mError: Amount need to be between 0 and 1000 => ";
-            message += str;
-            message += "\33[0m";
-        }
-        virtual const char * what() const throw();
-};
-
-class   ErrorIncomplet : public std::exception
-{
-    private:
-        std::string message;
-    public:
-        ErrorIncomplet(std::string str){
-            this->message = "\033[1;31mError: Date or Amount is missing => ";
-            message += str;
-            message += "\33[0m";
-        }
-        virtual const char * what() const throw();
-};
-
-
+#endif

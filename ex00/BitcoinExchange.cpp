@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:34:20 by ftholoza          #+#    #+#             */
-/*   Updated: 2024/06/07 15:09:30 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/11 08:01:25 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,36 @@ double	get_amount(std::string line)
 	
 	to_process = line.substr(10, line.size());
 	if (to_process.size() < 4)
-		throw ErrorInvalidAmountFormat(line);
+	{
+		std::cout << ErrorAmountFormat(line);
+		throw Error();
+	}
 	if ((line.c_str())[10] != ' ')
-		throw ErrorInvalidAmountFormat(line);
+	{
+		std::cout << ErrorAmountFormat(line);
+		throw Error();
+	}
 	if ((line.c_str())[11] != '|')
-		throw ErrorInvalidAmountFormat(line);
+	{
+		std::cout << ErrorAmountFormat(line);
+		throw Error();
+	}
 	if ((line.c_str())[12] != ' ')
-		throw ErrorInvalidAmountFormat(line);
+	{
+		std::cout << ErrorAmountFormat(line);
+		throw Error();
+	}
 	if (is_str_digit(line.substr(13, line.size())) == false)
-		throw ErrorInvalidAmountFormat(line);
+	{
+		std::cout << ErrorAmountFormat(line);
+		throw Error();
+	}
 	amount = std::atof((line.substr(13, line.size())).c_str());
 	if (amount < 0 || amount > 1000)
-		throw ErrorNegative1000(line);
+	{
+		std::cout << ErrorAmountValue(line);
+		throw Error();
+	}
 	return (amount);
 }
 
@@ -43,13 +61,13 @@ void	compare_data(std::string line, std::map<std::string, double> &data)
 	try
 	{
 		if (line.size() < 13)
-			throw ErrorIncomplet(line);
+			throw std::runtime_error(ErrorMissingInfo(line));
 		date = get_date(line);
 		amount = get_amount(line);
 	}
-	catch(const std::exception& e)
+	catch(const std::exception &e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what() << std::endl;
 		return ;
 	}
 	std::map<std::string, double>::iterator it = data.begin();
@@ -90,6 +108,9 @@ bool	read_infile(char *str, std::map<std::string, double> &data)
         return (false);
     }
 	while (std::getline(infile, line))
-		compare_data(line, data);
+	{
+		if (line != "" && line != "date | value" && line != std::string("$> head " + std::string(str)))
+			compare_data(line, data);
+	}
 	return (true);
 }

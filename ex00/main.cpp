@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 23:40:53 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/07 13:52:46 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/11 08:04:42 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    insert_data(std::map<std::string, double> &map, std::string line)
         date = get_date(line);
         value = get_value(line);
     }
-    catch(const std::exception& e)
+    catch(const std::exception &e)
     {
         std::cerr << e.what() << '\n';
         return ;
@@ -46,7 +46,10 @@ int main(int argc, char **argv)
         }
         std::map<std::string, double>   map;
         while (std::getline(data, line))
-            insert_data(map, line);
+        {
+            if (line != "date,exchange_rate")
+                insert_data(map, line);
+        }
         read_infile(argv[1], map);
     }
     catch(const std::exception& e)
