@@ -6,7 +6,7 @@
 /*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:05:14 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/23 20:09:26 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/23 20:37:36 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,42 @@ bool    check_dup(char **argv)
         return (true);
 }
 
+bool    check_if_sort(std::list<int> mlist, std::vector<int> mvec, char **argv)
+{
+    std::list<int>::iterator    it;
+    std::set<int>::iterator     it2;
+    std::vector<int>::iterator  itv;
+    std::list<int>  list;
+    for (int i = 1; argv[i]; i++)
+        list.push_back(std::atoi(argv[i]));
+    std::set<int> sorted(list.begin(), list.end());
+    it = mlist.begin();
+    it2 = sorted.begin();
+    while (it != mlist.end() && it2 != sorted.end())
+    {
+        if (*it == *it2)
+        {
+            it++;
+            it2++;
+        }
+        else
+            return (false);
+    }
+    it2 = sorted.begin();
+    itv = mvec.begin();
+    while (itv != mvec.end() && it2 != sorted.end())
+    {
+        if (*itv == *it2)
+        {
+            itv++;
+            it2++;
+        }
+        else
+            return (false);
+    }
+    return (true);
+}
+
 int main(int argc, char **argv)
 {
     PmergeMe    pmerge;
@@ -108,9 +144,12 @@ int main(int argc, char **argv)
         pmerge.set_pend_vec();
         pmerge.insertion_v();
         vector_end = time();
-        std::cout << RED << "After:  " << END_STYLE << CYAN;
+        std::cout << std::endl << RED << "After:  " << END_STYLE << CYAN;
         show_list(pmerge.get_lst());
-        std::cout << END_STYLE;
+        std::cout << std::endl;
+        if (check_if_sort(pmerge.get_lst(), pmerge.get_vec(), argv) == true)
+            std::cout << END_STYLE << RED << "CHECK: " << GREEN << "[SORTED]" << std::endl;
+        std::cout << std::endl << END_STYLE;
         std::cout << PURPLE << "Time to process a range of " << pmerge.get_lst().size();
         std::cout << " elements with std::vector : " << vector_end - vector_start << " us" << std::endl;
         std::cout << "Time to process a range of " << pmerge.get_lst().size();
