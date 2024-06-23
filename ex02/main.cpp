@@ -6,12 +6,13 @@
 /*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:05:14 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/22 16:46:01 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/23 20:09:26 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "Colors.hpp"
 # include "PmergeMe.hpp"
+# include <set>
 
 double  time()
 {
@@ -50,6 +51,18 @@ void    show_l(std::list<std::pair<int, int> > list)
     return;
 }
 
+bool    check_dup(char **argv)
+{
+    std::list<int>  list;
+    for (int i = 1; argv[i]; i++)
+        list.push_back(std::atoi(argv[i]));
+    std::set<int> sorted(list.begin(), list.end());
+    if (list.size() == sorted.size())
+        return (false);
+    else
+        return (true);
+}
+
 int main(int argc, char **argv)
 {
     PmergeMe    pmerge;
@@ -78,6 +91,8 @@ int main(int argc, char **argv)
             }
             pmerge.add_to_merge(argv[i], "NULL");
         }
+        if (check_dup(argv) == true)
+            throw (ErrorBadInput());
         std::cout << RED << "Before:  " << END_STYLE << CYAN;
         show_l(pmerge.get_pair_list());
         std::cout << END_STYLE;

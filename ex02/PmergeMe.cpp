@@ -6,7 +6,7 @@
 /*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:05:22 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/22 15:27:29 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/23 19:56:26 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,5 @@ void PmergeMe::add_to_merge(std::string first, std::string second)
 
 const char *ErrorBadInput::what() const throw()
 {
-    return ("\033[1;31mError: Bad Input\033[0m\n\033[1;34mvalid: positive numbers under INTMAX\033[0m");
+    return ("\033[1;31mError: Bad Input\033[0m\n\033[1;34mvalid: list of positive differents integers\033[0m");
 }
