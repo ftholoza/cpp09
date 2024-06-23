@@ -6,7 +6,7 @@
 /*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:05:22 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/23 19:56:26 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/23 20:13:50 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void PmergeMe::add_to_merge(std::string first, std::string second)
     
     if (first.size() == 0)
     {
-        std::cout << "here 1" << std::endl;
         throw ErrorBadInput();
     }
     else if (is_digit(first) && int_check_overflow(first) == false)
@@ -108,11 +107,8 @@ void PmergeMe::add_to_merge(std::string first, std::string second)
         pair.second = -1;
     else if (is_digit(second) && int_check_overflow(second) == false)
         pair.second = std::atoi(second.c_str());
-    else
-    {        
-        std::cout << "here 3" << std::endl;
+    else    
         throw ErrorBadInput();
-    }
     this->vector.push_back(pair);
     this->list.push_back(pair);
 }
