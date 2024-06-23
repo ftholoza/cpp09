@@ -6,7 +6,7 @@
 /*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:05:25 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/22 12:14:37 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/23 20:56:49 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ class PmergeMe
 
 void    show_list(std::list<int> list);
 void    show_vector(std::vector<int> vector);
+void    show_v(std::vector<std::pair<int, int> > vector);
+
 
 class   ErrorBadInput : public std::exception
 {

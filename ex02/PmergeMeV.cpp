@@ -6,7 +6,7 @@
 /*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 07:30:32 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/23 19:23:31 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/23 21:00:26 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,30 @@ void    get_it_v(std::vector<int>::iterator &it, std::vector<int> &vector, int i
 
 void    PmergeMe::first_sort_v()
 {
-    //std::vector<std::pair<int, int> >::iterator itv = this->vector.begin();
-    std::vector<std::pair<int, int> > &vector = this->vector;
-    int i = 0;
+    std::vector<std::pair<int, int> >::iterator itv = this->vector.begin();
+    //std::vector<std::pair<int, int> > &vector = this->vector;
+    //int i = 0;
     int temp;
     
-
-    while (i < (int)vector.size())
+    while (itv != this->vector.end())
     {
-        if (vector[i].first > vector[i].second && vector[i].second != -1)
+        if ((*itv).first > (*itv).second && (*itv).second != -1)
         {
-            temp = vector[i].first;
-            vector[i].first = vector[i].second;
-            vector[i].second = temp;
+            if ((*itv).first > this->max)
+                this->max = (*itv).first;
+            temp = (*itv).first;
+            (*itv).first = (*itv).second;
+            (*itv).second = temp;
         }
-        i++;
+        else if ((*itv).second != -1)
+        {
+            if ((*itv).second > this->max)
+                this->max = (*itv).second;
+        }
+        else
+            if ((*itv).first > this->max)
+                this->max = (*itv).first;
+        itv++;
     }
 }
 
@@ -108,14 +117,13 @@ void    show_vector(std::vector<int> vec)
 void    PmergeMe::second_sort_v()
 {
     std::vector<int> vec;
-    std::vector<std::pair<int, int> > &vector = this->vector;
-    int i = 0;
 
-    while (i < (int)vector.size())
+    std::vector<std::pair<int, int> >::iterator it = this->vector.begin();
+    while (it != this->vector.end())
     {
-        if (vector[i].second != -1)
-            vec.push_back(vector[i].second);
-        i++;
+        if ((*it).second != -1)
+            vec.push_back((*it).second);
+        it++;
     }
     merge_sort_v(vec, 0, vec.size() - 1);
     this->vec = vec;
@@ -147,7 +155,7 @@ void    vec_pop_front(std::vector<std::pair<int, int> >  &vector)
     std::vector<std::pair<int, int> > res;
     std::vector<std::pair<int, int> >::iterator it = vector.begin();
     
-    if (vector.size() > 1)
+    if (vector.size() > 0)
         it++;
     while (it != vector.end())
     {
@@ -188,25 +196,27 @@ void    PmergeMe::set_pend_vec()
 	43690, 87382, 174762, 349526, 699050, 1398102, 2796202, 5592406, 11184810,
 	22369622, 44739242, 89478486, 178956970, 357913942, 715827882, 1431655766};
     std::vector<std::pair<int, int> >::iterator   itl;
-    std::vector<std::pair<int, int> > &vector = this->sorted_vector;
     int                                         i = 0;
-    int                                         x = 0;
 
     sort_pair_v(this->vec, this->vector, this->sorted_vector);
     itl = this->sorted_vector.begin();
-    vec.insert(vec.begin(), this->sorted_vector.front().first);
+    //void    show_v(std::vector<std::pair<int, int> > vector)
+    //show_v(this->sorted_vector);
+    insert_v(0, this->sorted_vector.front().first, this->vec);
     vec_pop_front(this->sorted_vector);
+    //std::cout << std::endl;
+    //show_v(this->sorted_vector);
     while (this->sorted_vector.size() > 0)
     {
-        x = 0;
+        itl = this->sorted_vector.begin();
         if (jacobsthal_list[i] > (int)this->sorted_vector.size())
             break;
         for (int y = 1; y < jacobsthal_list[i]; y++)
-            x++;
+            itl++;
         for (int y = 0; y < jacobsthal_list[i]; y++)
         {
-            this->pend_v.push_back(vector[x].first);
-            x--;
+            this->pend_v.push_back((*itl).first);
+            itl--;
         }
         for (int y = 0; y < jacobsthal_list[i]; y++)
             vec_pop_front(this->sorted_vector);
@@ -222,6 +232,7 @@ void    PmergeMe::set_pend_vec()
         }
         this->pend_v.push_back((*itl).first);
     }
+   // show_vector(this->pend_v);
 }
 
 int    binary_research_v(int target, int max, std::vector<int> &list)
@@ -272,6 +283,6 @@ void    PmergeMe::insertion_v()
 	}
 	if ((*itl).second == -1)
         binary_research_v((*itl).first, this->vec.size(), this->vec);
-    //show_vector(this->vec);
+   // show_vector(this->vec);
     //std::cout << std::endl;
 }

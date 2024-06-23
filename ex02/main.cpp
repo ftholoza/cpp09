@@ -6,7 +6,7 @@
 /*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:05:14 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/23 20:37:36 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/23 21:04:31 by francesco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,10 @@ int main(int argc, char **argv)
             }
             pmerge.add_to_merge(argv[i], "NULL");
         }
+        //pmerge.show();
         if (check_dup(argv) == true)
             throw (ErrorBadInput());
-        std::cout << RED << "Before:  " << END_STYLE << CYAN;
+        std::cout << RED << std::endl << "Before:  " << END_STYLE << CYAN;
         show_l(pmerge.get_pair_list());
         std::cout << END_STYLE;
         list_start = time();
@@ -153,7 +154,7 @@ int main(int argc, char **argv)
         std::cout << PURPLE << "Time to process a range of " << pmerge.get_lst().size();
         std::cout << " elements with std::vector : " << vector_end - vector_start << " us" << std::endl;
         std::cout << "Time to process a range of " << pmerge.get_lst().size();
-        std::cout << " elements with std::list : " << list_end - list_start << " us" << END_STYLE;
+        std::cout << " elements with std::list : " << list_end - list_start << " us" << END_STYLE << std::endl << std::endl;
     }
     catch(const std::exception& e)
     {
