@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:05:22 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/23 20:13:50 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/24 13:21:27 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ bool     is_digit(std::string data)
     i = 1;
     str = data.c_str();
     if (!std::isdigit(str[0]) && str[0] != '+')
+        return (false);
+    if (data.size() == 1 && data.c_str()[0] == '+')
         return (false);
     while (str[i])
     {

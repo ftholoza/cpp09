@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:34:20 by ftholoza          #+#    #+#             */
-/*   Updated: 2024/06/11 08:01:25 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/24 16:24:20 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
+#include "filesystem"
+# include <sys/stat.h> 
 
 double	get_amount(std::string line)
 {
@@ -34,6 +36,11 @@ double	get_amount(std::string line)
 		throw Error();
 	}
 	if ((line.c_str())[12] != ' ')
+	{
+		std::cout << ErrorAmountFormat(line);
+		throw Error();
+	}
+	if (line.substr(13, line.size()).c_str()[0] == '0')
 	{
 		std::cout << ErrorAmountFormat(line);
 		throw Error();
@@ -102,9 +109,21 @@ bool	read_infile(char *str, std::map<std::string, double> &data)
 {
 	std::string		line;
 	std::ifstream   infile(str);
+	struct stat     s;
+	
+	if (stat(str, &s) == 0)
+    {
+        if(s.st_mode & S_IFREG)
+            ;
+        else
+        {
+            std::cout << "error: not a file" << std::endl;
+            return (1);
+        }
+    }
 	if (infile.bad() || infile.eof() || infile.is_open() == false)
     {
-        std::cerr << "data.csv opening failed" << std::endl;
+        std::cerr << "infile opening failed" << std::endl;
         return (false);
     }
 	while (std::getline(infile, line))

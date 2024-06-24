@@ -3,14 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange_utils.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:41:25 by ftholoza          #+#    #+#             */
-/*   Updated: 2024/06/11 07:45:52 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/24 11:43:27 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
+
+void    Date::set_year(int year)
+{
+    this->year = year;
+}
+void    Date::set_mounth(int mounth)
+{
+    this->mounth = mounth;
+}
+
+void    Date::set_day(int day)
+{
+    this->day = day;
+}
+
+int     Date::get_year()
+{
+    return (this->year);
+}
+
+int     Date::get_month()
+{
+    return (this->mounth);
+}
+
+int     Date::get_day()
+{
+    return (this->day);
+}
+
+bool    Date::check_day()
+{
+    if (this->mounth == 9 || this->mounth == 11 || this->mounth == 4 || this->mounth == 6)
+    {
+        if (this->day > 30)
+        {
+            std::cout << ErrorDay("this mounth have maximum 30 days");
+            throw Error();
+        }
+    }
+    if (this->mounth == 2)
+    {
+        if (this->year % 4 == 0)
+        {
+            if (this->day > 29)
+            {
+                std::cout << ErrorDay("this mounth on bisextil years have maximum 29 days");
+                throw Error();
+            }
+        }
+        else
+        {
+            if (this->day > 28)
+            {
+                std::cout << ErrorDay("this mounth out of bisextil years have maximum 28 years");
+                throw Error();
+            }
+        }
+    }
+    return (true);
+}
 
 double  get_value(std::string line)
 {
@@ -50,7 +111,12 @@ bool    check_mounth(std::string line)
 {
     int mounth;
     
-    if (is_str_digit(line) == false)
+    if (line.c_str()[1] == '-')
+    {
+        std::cout << ErrorDateFormat("need 0 before");
+        throw Error();
+    }
+    else if (is_str_digit(line) == false)
         return (false);
     mounth = std::atoi(line.c_str());
     if (mounth < 1 || mounth > 12)
@@ -62,7 +128,11 @@ bool    check_day(std::string line)
 {
     int day;
     
-   // std::cout << line;
+    if (line.c_str()[1] == ' ')
+    {
+        std::cout << ErrorDateFormat("need 0 before");
+        throw Error();
+    }
     if (is_str_digit(line) == false)
         return (false);
     day = std::atoi(line.c_str());
@@ -73,7 +143,7 @@ bool    check_day(std::string line)
 
 std::string get_date(std::string line)
 {
-	//std::cout << line << std::endl;
+	Date date;
     if (line.size() < 12)
     {
 		std::cout << ErrorDateFormat(line);
@@ -84,6 +154,7 @@ std::string get_date(std::string line)
         std::cout << ErrorYear(line);
         throw Error();
     }
+    date.set_year(std::atoi(line.substr(0, 4).c_str()));
     if (line.c_str()[4] != '-')
     {
         std::cout << ErrorDateFormat(line);
@@ -94,6 +165,7 @@ std::string get_date(std::string line)
         std::cout << ErrorMounth(line);
         throw Error();
     }
+    date.set_mounth(std::atoi(line.substr(5, 2).c_str()));
     if (line.c_str()[7] != '-')
     {
         std::cout << ErrorDateFormat(line);
@@ -103,7 +175,9 @@ std::string get_date(std::string line)
     {
         std::cout << ErrorDay(line);
         throw Error();
-    }   
+    }
+    date.set_day(std::atoi(line.substr(8, 2).c_str()));
+    date.check_day();
     return (line.substr(0, 10));
 }
 
