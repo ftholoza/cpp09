@@ -6,7 +6,7 @@
 /*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:37:50 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/24 16:52:15 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/25 13:05:50 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ double  RPN::calculator(std::string notation)
     double  temp;
     double  temp2;
 
-    std::cout << notation << std::endl;
+    //std::cout << notation << std::endl;
     while (notation.c_str()[i])
     {
         if (std::isdigit(notation.c_str()[i]))

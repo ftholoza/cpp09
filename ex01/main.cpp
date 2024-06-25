@@ -6,7 +6,7 @@
 /*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:18:41 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/24 16:43:43 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/25 13:03:54 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,6 @@ bool    is_valid(char c)
     else
         return (false);
 }
-
-// double  calculator(std::string notation)
-// {
-//     const char *str = notation.c_str();
-//     int i = 0;
-//     RPN rpn;
-
-//     //std::cout << notation << std::endl;
-//     while (str[i])
-//     {
-//         if (isdigit(str[i]))
-//             rpn.add(str[i]);
-//         else
-//         {
-//             switch (str[i])
-//             {
-//                 case ('+'):
-//                     rpn.addition();
-//                     break;
-//                 case ('-'):
-//                     rpn.soustraction();
-//                     break;
-//                 case ('*'):
-//                     rpn.multiplication();
-//                     break;
-//                 case ('/'):
-//                     rpn.division();
-//                     break;
-//                 default:
-//                     break;
-//             }
-//         }
-//         i++;
-//     }
-//     //rpn.get_stack().pop();
-//     if (rpn.get_stack().size() >= 2)
-//         throw ErrorBadInput();
-//     return (rpn.get_stack().top());
-// }
 
 int error(std::string message)
 {

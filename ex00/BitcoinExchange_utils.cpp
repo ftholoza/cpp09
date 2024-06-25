@@ -6,7 +6,7 @@
 /*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:41:25 by ftholoza          #+#    #+#             */
-/*   Updated: 2024/06/24 11:43:27 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/25 13:01:24 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,14 @@ bool    is_str_digit(std::string str)
     const char *string;
 
     string = str.c_str();
+
     for (int i = 0; string[i] != 0; i++)
-        if (std::isdigit(string[i]) == 0 && string[i] != '.')
+    {
+        if (string[i] == '+' && i == 0)
+            ;
+        else if (std::isdigit(string[i]) == 0 && string[i] != '.')
             return (false);
+    }
     return (true);
 }
 
