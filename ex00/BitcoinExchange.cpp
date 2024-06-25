@@ -6,7 +6,7 @@
 /*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:34:20 by ftholoza          #+#    #+#             */
-/*   Updated: 2024/06/24 16:24:20 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/25 13:45:33 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ double	get_amount(std::string line)
 	double		amount;
 	
 	to_process = line.substr(10, line.size());
+	//std::cout << to_process << std::endl;
 	if (to_process.size() < 4)
 	{
 		std::cout << ErrorAmountFormat(line);
