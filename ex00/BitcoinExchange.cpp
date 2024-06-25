@@ -6,7 +6,7 @@
 /*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:34:20 by ftholoza          #+#    #+#             */
-/*   Updated: 2024/06/25 13:45:33 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:24:58 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ double	get_amount(std::string line)
 		throw Error();
 	}
 	if ((line.c_str())[12] != ' ')
-	{
-		std::cout << ErrorAmountFormat(line);
-		throw Error();
-	}
-	if (line.substr(13, line.size()).c_str()[0] == '0')
 	{
 		std::cout << ErrorAmountFormat(line);
 		throw Error();
