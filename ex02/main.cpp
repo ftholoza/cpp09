@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francesco <francesco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:05:14 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/23 21:04:31 by francesco        ###   ########.fr       */
+/*   Updated: 2024/06/26 19:49:43 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ int main(int argc, char **argv)
     if (argc < 3)
     {
         std::cerr << RED <<"Error: Not enought arguments" << END_STYLE <<std::endl;
+        return (1);
+    }
+    if (argc - 1 > 100000)
+    {
+        std::cerr << RED << "Error: Too many arguments" << END_STYLE <<std::endl;
         return (1);
     }
     try

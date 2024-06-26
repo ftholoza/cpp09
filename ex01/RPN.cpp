@@ -6,7 +6,7 @@
 /*   By: ftholoza <ftholoza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:37:50 by francesco         #+#    #+#             */
-/*   Updated: 2024/06/25 13:05:50 by ftholoza         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:48:45 by ftholoza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void RPN::add(char c)
 {
     char str[2];
     str[0] = c;
+    str[1] = 0;
     this->stack.push(std::atoi(str));
 }
 
